@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Sharing</title>
+</head>
+<body>
+    <h1>File Sharing</h1>
+    <input type="file" id="fileInput" />
+    <select id="targetUser"></select>
+    <button onclick="uploadFile()">Upload</button>
+    <ul id="fileList"></ul>
+
+    <script>
+        // Function to generate a random username
+        function generateRandomUsername() {
+            const adjectives = ['Happy', 'Friendly', 'Clever', 'Creative', 'Eager', 'Brave', 'Adventurous'];
+            const nouns = ['User', 'Explorer', 'Collaborator', 'Innovator', 'Pioneer', 'Dreamer', 'Traveler'];
+            const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+            const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+            return `${randomAdjective}${randomNoun}`;
+        }
+
+        // Function to upload a file
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const fileList = document.getElementById('fileList');
+            const targetUser = document.getElementById('targetUser').value;
+            
+            // Generate a random username
+            const username = generateRandomUsername();
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileName = file.name;
+                const fileURL = 'shared/' + fileName;
+
+                const listItem = document.createElement('li');
+                listItem.textContent = fileName;
+                fileList.appendChild(listItem);
+
+                // Move the file to the shared folder
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('username', username); // Use the generated username
+                formData.append('targetUser', targetUser);
+                fetch(fileURL, {
+                    method: 'POST',
+                    body: formData,
+                });
+            }
+        }
+
+        // Load the list of connected users on page load
+        loadUsers();
+
+        // Generate a random username when the page loads
+        const generatedUsername = generateRandomUsername();
+        console.log(`Your random username: ${generatedUsername}`);
+    </script>
+</body>
+</html>
