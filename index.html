@@ -12,6 +12,20 @@
 
     <script>
         // Function to generate a random username
+
+        async function loadUsers() {
+            const response = await fetch('/users');
+            const users = await response.json();
+            const select = document.getElementById('targetUser');
+
+            select.innerHTML = '';
+            for (const user of users) {
+                const option = document.createElement('option');
+                option.text = user;
+                select.add(option);
+            }
+        }
+        
         function generateRandomUsername() {
             const adjectives = ['Happy', 'Friendly', 'Clever', 'Creative', 'Eager', 'Brave', 'Adventurous'];
             const nouns = ['User', 'Explorer', 'Collaborator', 'Innovator', 'Pioneer', 'Dreamer', 'Traveler'];
