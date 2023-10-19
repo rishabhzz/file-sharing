@@ -8,5 +8,9 @@
   },
   "keywords": ["local network", "device discovery"],
   "author": "Your Name",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+  "node-ssdp": "^5.3.0"
+}
+
 }
