@@ -1,56 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Network Users</title>
+    <title>Local Network Devices</title>
 </head>
 <body>
-    <h1>Network Users</h1>
-    <form id="registerForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" required>
-        <button type="submit">Register</button>
-    </form>
-    <h2>Registered Users</h2>
-    <ul id="userList"></ul>
-
-    <script>
-        const registerForm = document.getElementById('registerForm');
-        const nameInput = document.getElementById('name');
-        const userList = document.getElementById('userList');
-
-        registerForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = nameInput.value;
-
-            if (name) {
-                const response = await fetch('/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ name }),
-                });
-
-                if (response.ok) {
-                    addUserToList(name);
-                    nameInput.value = '';
-                }
-            }
-        });
-
-        async function addUserToList(name) {
-            const li = document.createElement('li');
-            li.textContent = name;
-            userList.appendChild(li);
-        }
-
-        async function loadUsers() {
-            const response = await fetch('/');
-            const users = await response.text();
-            userList.innerHTML = users;
-        }
-
-        loadUsers();
-    </script>
+    <h1>Local Network Devices</h1>
+    <ul id="device-list"></ul>
+    <script src="app.js"></script>
 </body>
 </html>
