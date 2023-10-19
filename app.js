@@ -1,5 +1,5 @@
-const SSDP = require('node-ssdp');
-const ssdp = new SSDP();
+var Client = require('node-ssdp').Client;
+let ssdp = new Client();
 
 const deviceList = document.getElementById('device-list');
 
