@@ -1,11 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Local Network Devices</title>
+    <title>Local Messaging</title>
 </head>
 <body>
-    <h1>Local Network Devices</h1>
-    <ul id="device-list"></ul>
-    <script src="app.js" defer></script>
+    <h1>Local Messaging</h1>
+    <div id="message-container">
+        <div id="message-display"></div>
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button id="send-button">Send</button>
+    </div>
+    
+    <script>
+        const messageDisplay = document.getElementById('message-display');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+
+        // Function to add a message to the display
+        function addMessage(message) {
+            messageDisplay.innerHTML += message + '<br>';
+        }
+
+        sendButton.addEventListener('click', () => {
+            const message = messageInput.value;
+            if (message) {
+                addMessage(message);
+                messageInput.value = '';
+
+                // You can send this message to the server for further processing
+                // For local network, you can use fetch or XMLHttpRequest.
+                // Example: Send message to server using fetch
+                fetch('/send', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message }),
+                });
+            }
+        });
+    </script>
 </body>
 </html>
